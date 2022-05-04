@@ -1,0 +1,18 @@
+programm: KWSTART, body, KWEND
+body: (command, ENDOFCOMMAND)|(command, body)|HELP
+command: (get_interface, ( set_address | set_protocol))
+get_interface: INTERFACE, SPACE, DIGIT
+set_address: SPACE, ASSIGN_OP, SPACE, ADDRESS
+set_protocol: SPACE, ASSIGN_OP, PROTOCOL
+
+
+
+
+
+
+
+
+
+
+
+
