@@ -5,7 +5,7 @@ import java.util.regex.*;
 
 public class Main {
 
-    private static Map<String, Pattern> lex = new HashMap<>();
+    private static Map<String, Pattern> lex = new LinkedHashMap<>();
 
     static {
 
@@ -30,11 +30,15 @@ public class Main {
 
         List<Token> tokens = new LinkedList<>();
 
-        for (String lexemName: lex.keySet()) {
-            Matcher m = lex.get(lexemName).matcher(srcExample);
-            if (m.find()) {
-                System.out.println(lexemName + " found ");
-                tokens.add(new Token(lexemName, m.group().replaceAll("\\s", "")));
+        while (srcExample.length()!=0) {
+            for (String lexemName : lex.keySet()) {
+                Matcher m = lex.get(lexemName).matcher(srcExample);
+                if (m.find() && m.start() == 0) {
+                    System.out.println(lexemName + " found ");
+                    tokens.add(new Token(lexemName, m.group().replaceAll("\\s", "")));
+                    srcExample = srcExample.substring(m.end());
+                    break;
+                }
             }
         }
 
